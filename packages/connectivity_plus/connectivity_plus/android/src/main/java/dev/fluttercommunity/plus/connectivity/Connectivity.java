@@ -36,11 +36,11 @@ public class Connectivity {
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
         return CONNECTIVITY_ETHERNET;
       }
-      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
-        return CONNECTIVITY_VPN;
-      }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)) {
         return CONNECTIVITY_MOBILE;
+      }
+      if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_VPN)) {
+        return CONNECTIVITY_VPN;
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH)) {
         return CONNECTIVITY_BLUETOOTH;
