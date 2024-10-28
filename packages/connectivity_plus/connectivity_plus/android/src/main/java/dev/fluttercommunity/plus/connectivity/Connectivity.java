@@ -31,7 +31,11 @@ public class Connectivity {
         return CONNECTIVITY_NONE;
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)) {
-        return CONNECTIVITY_WIFI;
+        if (capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)) {
+          return CONNECTIVITY_WIFI;
+        }
+        // Metered Wi-Fi should not be treated like normal
+        return CONNECTIVITY_MOBILE;
       }
       if (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)) {
         return CONNECTIVITY_ETHERNET;
@@ -65,6 +69,10 @@ public class Connectivity {
         return CONNECTIVITY_ETHERNET;
       case ConnectivityManager.TYPE_WIFI:
       case ConnectivityManager.TYPE_WIMAX:
+        if (connectivityManager.isActiveNetworkMetered()) {
+          // Metered Wi-Fi should not be treated like normal
+          return CONNECTIVITY_MOBILE;
+        }
         return CONNECTIVITY_WIFI;
       case ConnectivityManager.TYPE_VPN:
         return CONNECTIVITY_VPN;
